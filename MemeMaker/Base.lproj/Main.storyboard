@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -22,9 +23,14 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wmf-vw-0uk">
                                 <rect key="frame" x="0.0" y="837" width="414" height="49"/>
                                 <items>
-                                    <barButtonItem title="Item" width="150" id="1rs-Jb-qfy">
+                                    <barButtonItem title="Image" image="photo" catalog="system" width="208" style="plain" id="OyU-qD-PeP">
                                         <connections>
-                                            <action selector="pickAnImage:" destination="BYZ-38-t0r" id="7RX-EQ-Ddn"/>
+                                            <action selector="pickAnImage:" destination="BYZ-38-t0r" id="xGD-EC-EFc"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Camera" image="camera" catalog="system" width="204.33333333333331" style="plain" id="DZy-T9-x0t">
+                                        <connections>
+                                            <action selector="pickAnImageFromCamera:" destination="BYZ-38-t0r" id="eTC-Vt-SsW"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -53,6 +59,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="camera" catalog="system" width="128" height="94"/>
+        <image name="photo" catalog="system" width="128" height="93"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
