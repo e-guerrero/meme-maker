@@ -25,7 +25,7 @@
                                 <items>
                                     <barButtonItem title="Image" image="photo" catalog="system" width="208" style="plain" id="OyU-qD-PeP">
                                         <connections>
-                                            <action selector="pickAnImage:" destination="BYZ-38-t0r" id="xGD-EC-EFc"/>
+                                            <action selector="pickAnImageFromPhotoLibrary:" destination="BYZ-38-t0r" id="xGD-EC-EFc"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Camera" image="camera" catalog="system" width="204.33333333333331" style="plain" id="DZy-T9-x0t">
@@ -50,6 +50,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cameraBtn" destination="DZy-T9-x0t" id="kD1-Fz-aM1"/>
                         <outlet property="imagePickerView" destination="Y29-6a-MkZ" id="joD-CF-lnX"/>
                     </connections>
                 </viewController>
