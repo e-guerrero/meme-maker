@@ -21,9 +21,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NSAttributedString.Key.strokeWidth: Float(5)
     ]
     
+    // MARK: Life Cycle
+    
     override func viewWillAppear(_ animated: Bool) {
         // disable the camera if the device being used doesn't have one.
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        
+        // sign up to be notified when the keyboard appears
+        subscribeToKeyboardNotifications()
     }
     
     override func viewDidLoad() {
@@ -39,6 +44,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // find out how to capitalize all characters. this one doesn't seem to do it.
         topTextField.autocapitalizationType = UITextAutocapitalizationType.allCharacters
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // unsubscribe from being notified when the keyboard appears
+        unsubscribeFromKeyboardNotifications()
+    }
+    
+    // MARK: Pick Image
 
     @IBAction func pickAnImageFromPhotoLibrary(_ sender: Any) {
         let imagePicker = UIImagePickerController()
@@ -65,6 +78,38 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
+    
+    // MARK: Keyboard Notification
+    
+    func subscribeToKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    func unsubscribeFromKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    // MARK: Shift The View's Frame Up
+    
+    @objc func keyboardWillShow(_ notification:Notification) {
+        view.frame.origin.y -= getKeyboardHeight(notification)
+    }
+    
+    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
 
