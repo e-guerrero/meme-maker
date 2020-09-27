@@ -10,15 +10,29 @@ import UIKit
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var imagePickerView: UIImageView!
-    @IBOutlet weak var cameraBtn: UIBarButtonItem!
+    @IBOutlet weak var cameraButton: UIBarButtonItem!
+    @IBOutlet weak var topTextField: UITextField!
+    @IBOutlet weak var bottomTextField: UITextField!
+    
+    let memeTextAttributes: [NSAttributedString.Key: Any] = [
+        NSAttributedString.Key.strokeColor: UIColor.black,
+        NSAttributedString.Key.foregroundColor: UIColor.white,
+        NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+        NSAttributedString.Key.strokeWidth: Float(5)
+    ]
     
     override func viewWillAppear(_ animated: Bool) {
         // disable the camera if the device being used doesn't have one.
-        cameraBtn.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        topTextField.defaultTextAttributes = memeTextAttributes
+        bottomTextField.defaultTextAttributes = memeTextAttributes
+        // I couldn't get the text centered using memeTextAttributes so I'm doing it this way.
+        topTextField.textAlignment = .center
+        bottomTextField.textAlignment = .center
     }
 
     @IBAction func pickAnImageFromPhotoLibrary(_ sender: Any) {
