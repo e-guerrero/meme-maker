@@ -24,10 +24,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // MARK: Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
-        // disable the camera if the device being used doesn't have one.
+        // disable the camera if the device being used doesn't have one
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-        
-        // sign up to be notified when the keyboard appears
+        // have the keyboard notify when it will show/hide
         subscribeToKeyboardNotifications()
     }
     
@@ -35,7 +34,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         topTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.defaultTextAttributes = memeTextAttributes
-        // couldn't get the alignment attribute working as an NSAttributedString.
+        // Issue: couldn't get the alignment attribute working as an NSAttributedString.
         // - try finding a subclass that has these attributes
         //      and then replace [NSAttributedString.Key: Any] with ["subclass": Any],
         // - else replace [NSAttributedString.Key: Any] with [String: Any].
@@ -53,20 +52,26 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: Pick Image
 
-    @IBAction func pickAnImageFromPhotoLibrary(_ sender: Any) {
+    @IBAction func pickAnImageFromCameraRoll(_ sender: Any) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
     
-    @IBAction func pickAnImageFromCamera(_ sender: Any) {
+    @IBAction func takePictureWithCamera(_ sender: Any) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .camera
         present(imagePicker, animated: true, completion: nil)
     }
     
+    // MARK: Set Image
+    
+    // Issue: if you select a text field, press the camera roll or camera button, and then
+    //  pick an image or click cancel, the text fields disappear.
+    // - try to keep the camera roll and camera button covered when the keyboard shows
+    //      by getting an outlet for the toolbar and get it's height.
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let imageKey = UIImagePickerController.InfoKey.originalImage
         if let image =  info[imageKey] as? UIImage {
@@ -79,37 +84,35 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
     }
     
-    // MARK: Keyboard Notification
+    // MARK: Keyboard
     
-    func subscribeToKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+        let userInfo = notification.userInfo!
+        let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
     }
     
-    func unsubscribeFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-    }
-    
-    // MARK: Shift The View's Frame Up
-    
+    // Show
     @objc func keyboardWillShow(_ notification:Notification) {
         view.frame.origin.y -= getKeyboardHeight(notification)
     }
     
-    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
-        let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
-        return keyboardSize.cgRectValue.height
+    // Hide
+    @objc func keyboardWillHide(_ notification:Notification) {
+        view.frame.origin.y += getKeyboardHeight(notification)
     }
     
+    // Subscribe
+    func subscribeToKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
+    // Unsubscribe
+    func unsubscribeFromKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     
 }
 
