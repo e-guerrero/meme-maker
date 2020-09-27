@@ -30,9 +30,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         topTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.defaultTextAttributes = memeTextAttributes
-        // I couldn't get the text centered using memeTextAttributes so I'm doing it this way.
+        // couldn't get the alignment attribute working as an NSAttributedString.
+        // - try finding a subclass that has these attributes
+        //      and then replace [NSAttributedString.Key: Any] with ["subclass": Any],
+        // - else replace [NSAttributedString.Key: Any] with [String: Any].
         topTextField.textAlignment = .center
         bottomTextField.textAlignment = .center
+        // find out how to capitalize all characters. this one doesn't seem to do it.
+        topTextField.autocapitalizationType = UITextAutocapitalizationType.allCharacters
     }
 
     @IBAction func pickAnImageFromPhotoLibrary(_ sender: Any) {
@@ -41,7 +46,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
-    
     
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
         let imagePicker = UIImagePickerController()

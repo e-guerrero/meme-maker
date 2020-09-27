@@ -37,15 +37,15 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Top" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Jkh-R9-J9y">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="top" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Jkh-R9-J9y">
                                 <rect key="frame" x="0.0" y="94" width="414" height="22"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Bottom" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="J71-sC-HWA">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="bottom" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="J71-sC-HWA">
                                 <rect key="frame" x="0.0" y="765" width="414" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NwF-iV-7sR"/>
