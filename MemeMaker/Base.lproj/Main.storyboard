@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -12,15 +14,15 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMaker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y29-6a-MkZ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="539"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="835"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wmf-vw-0uk">
-                                <rect key="frame" x="0.0" y="546" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="842" width="414" height="44"/>
                                 <items>
                                     <barButtonItem title="Camera Roll" image="photo" catalog="system" width="110" style="plain" id="OyU-qD-PeP">
                                         <connections>
@@ -36,12 +38,12 @@
                                 </items>
                             </toolbar>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="top" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Jkh-R9-J9y">
-                                <rect key="frame" x="0.0" y="50" width="600" height="22"/>
+                                <rect key="frame" x="0.0" y="94" width="414" height="22"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="bottom" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="J71-sC-HWA">
-                                <rect key="frame" x="0.0" y="474" width="600" height="22"/>
+                                <rect key="frame" x="0.0" y="770" width="414" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
@@ -71,6 +73,7 @@
                         <outlet property="bottomTextField" destination="J71-sC-HWA" id="KvX-5z-mDn"/>
                         <outlet property="cameraButton" destination="DZy-T9-x0t" id="kD1-Fz-aM1"/>
                         <outlet property="imageView" destination="Y29-6a-MkZ" id="joD-CF-lnX"/>
+                        <outlet property="toolbar" destination="Wmf-vw-0uk" id="5F3-jW-0Jc"/>
                         <outlet property="topTextField" destination="Jkh-R9-J9y" id="eOT-MU-dLa"/>
                     </connections>
                 </viewController>

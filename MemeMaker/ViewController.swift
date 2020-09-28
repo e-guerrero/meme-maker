@@ -13,6 +13,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
+    @IBOutlet weak var toolbar: UIToolbar!
     
     let memeTextAttributes: [NSAttributedString.Key: Any] = [
         NSAttributedString.Key.strokeColor: UIColor.black,
@@ -20,6 +21,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSAttributedString.Key.strokeWidth: Float(5)
     ]
+    var memeImage: UIImage!
+    var meme: Meme!
     
     // MARK: Life Cycle
     
@@ -80,6 +83,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if let image =  info[imageKey] as? UIImage {
             imageView.image = image
         }
+        save() // the meme
         dismiss(animated: true, completion: nil)
     }
     
@@ -124,5 +128,26 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    // MARK: Meme
+    
+    func generateMemedImage() -> UIImage {
+        toolbar.isHidden = true
+            
+        // render view to an image
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        toolbar.isHidden = false
+        
+        return memedImage
+    }
+    
+    func save() {
+        // create the meme
+        memeImage = generateMemedImage()
+        meme = Meme(top: topTextField.text!, bottom: bottomTextField.text!, image: imageView.image!, memeImage: memeImage!)
+    }
 }
 
