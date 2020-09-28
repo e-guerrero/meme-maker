@@ -70,7 +70,7 @@
                     <connections>
                         <outlet property="bottomTextField" destination="J71-sC-HWA" id="KvX-5z-mDn"/>
                         <outlet property="cameraButton" destination="DZy-T9-x0t" id="kD1-Fz-aM1"/>
-                        <outlet property="imagePickerView" destination="Y29-6a-MkZ" id="joD-CF-lnX"/>
+                        <outlet property="imageView" destination="Y29-6a-MkZ" id="joD-CF-lnX"/>
                         <outlet property="topTextField" destination="Jkh-R9-J9y" id="eOT-MU-dLa"/>
                     </connections>
                 </viewController>

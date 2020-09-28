@@ -7,9 +7,9 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
-    @IBOutlet weak var imagePickerView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
@@ -33,7 +33,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         topTextField.defaultTextAttributes = memeTextAttributes
+        topTextField.delegate = self
         bottomTextField.defaultTextAttributes = memeTextAttributes
+        bottomTextField.delegate = self
+        
         // Issue: couldn't get the alignment attribute working as an NSAttributedString.
         // - try finding a subclass that has these attributes
         //      and then replace [NSAttributedString.Key: Any] with ["subclass": Any],
@@ -50,7 +53,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         unsubscribeFromKeyboardNotifications()
     }
     
-    // MARK: Pick Image
+    // MARK: Present and Pick Image
 
     @IBAction func pickAnImageFromCameraRoll(_ sender: Any) {
         let imagePicker = UIImagePickerController()
@@ -66,7 +69,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         present(imagePicker, animated: true, completion: nil)
     }
     
-    // MARK: Set Image
+    // MARK: Dismiss and Set Image
     
     // Issue: if you select a text field, press the camera roll or camera button, and then
     //  pick an image or click cancel, the text fields disappear.
@@ -75,7 +78,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let imageKey = UIImagePickerController.InfoKey.originalImage
         if let image =  info[imageKey] as? UIImage {
-            imagePickerView.image = image
+            imageView.image = image
         }
         dismiss(animated: true, completion: nil)
     }
@@ -101,6 +104,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // Hide
     @objc func keyboardWillHide(_ notification:Notification) {
         view.frame.origin.y += getKeyboardHeight(notification)
+    }
+    
+    // Hide the keyboard when the return key pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     // Subscribe
