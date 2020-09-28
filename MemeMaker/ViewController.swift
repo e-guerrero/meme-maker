@@ -15,11 +15,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var toolbar: UIToolbar!
     
+    // Issue: The text fill is clear instead of white. The attribute for it here won't work, nor on storyboard.
     let memeTextAttributes: [NSAttributedString.Key: Any] = [
-        NSAttributedString.Key.strokeColor: UIColor.black,
-        NSAttributedString.Key.foregroundColor: UIColor.white,
         NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSAttributedString.Key.strokeWidth: Float(5)
+//        NSAttributedString.Key.strokeWidth: Float(5),
+//        NSAttributedString.Key.strokeColor: UIColor.black,
+//        NSAttributedString.Key.foregroundColor: UIColor.white
     ]
     var memeImage: UIImage!
     var meme: Meme!
@@ -36,8 +37,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         topTextField.defaultTextAttributes = memeTextAttributes
-        topTextField.delegate = self
         bottomTextField.defaultTextAttributes = memeTextAttributes
+        topTextField.delegate = self
         bottomTextField.delegate = self
         
         // Issue: couldn't get the alignment attribute working as an NSAttributedString.
@@ -76,8 +77,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // Issue: if you select a text field, press the camera roll or camera button, and then
     //  pick an image or click cancel, the text fields disappear.
-    // - try to keep the camera roll and camera button covered when the keyboard shows
-    //      by getting an outlet for the toolbar and get it's height.
+    // - try to keep the toolbar covered when the keyboard shows
+    //      by using toolbar.isHidden()
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let imageKey = UIImagePickerController.InfoKey.originalImage
         if let image =  info[imageKey] as? UIImage {
