@@ -14,6 +14,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var toolbar: UIToolbar!
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
     
     // Issue: The text fill is clear instead of white. The attribute for it here won't work, nor on storyboard.
     let memeTextAttributes: [NSAttributedString.Key: Any] = [
@@ -30,6 +32,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewWillAppear(_ animated: Bool) {
         // disable the camera if the device being used doesn't have one
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        // disable the share button to prevent user from sharing an unfinished meme
+        shareButton.isEnabled = false
         // have the keyboard notify when it will show/hide
         subscribeToKeyboardNotifications()
     }
@@ -85,6 +89,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             imageView.image = image
         }
         save() // the meme
+        shareButton.isEnabled = true
         dismiss(animated: true, completion: nil)
     }
     
@@ -133,7 +138,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func generateMemedImage() -> UIImage {
         toolbar.isHidden = true
-            
+        navigationBar.isHidden = true
+        
         // render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
@@ -141,6 +147,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         UIGraphicsEndImageContext()
         
         toolbar.isHidden = false
+        navigationBar.isHidden = false
         
         return memedImage
     }
@@ -150,5 +157,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         memeImage = generateMemedImage()
         meme = Meme(top: topTextField.text!, bottom: bottomTextField.text!, image: imageView.image!, memeImage: memeImage!)
     }
+    
+    @IBAction func share(_ sender: Any) {
+        // generate a memed image
+        let memedImage = generateMemedImage()
+        // define an instance of the ActivityViewController and pass the ActivityViewController a
+        //  memedImage as an activity item.
+        let avc = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        // save the meme
+        avc.completionWithItemsHandler = { activity, success, items, error in
+            self.save()
+            self.dismiss(animated: true, completion: nil)
+        }
+        // present the ActivityController
+        present(avc, animated: true)
+    }
+    
 }
 

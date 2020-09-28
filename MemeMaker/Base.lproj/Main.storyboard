@@ -53,7 +53,11 @@
                                 <rect key="frame" x="0.0" y="50" width="414" height="44"/>
                                 <items>
                                     <navigationItem title="Meme Maker" id="27T-X3-1dg">
-                                        <barButtonItem key="leftBarButtonItem" title="Share" image="square.and.arrow.up" catalog="system" style="done" id="kBm-Iw-AvM"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Share" image="square.and.arrow.up" catalog="system" style="done" id="kBm-Iw-AvM">
+                                            <connections>
+                                                <action selector="share:" destination="BYZ-38-t0r" id="i3K-I1-f9m"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="cancel" id="fY7-af-Cks"/>
                                     </navigationItem>
                                 </items>
@@ -85,6 +89,8 @@
                         <outlet property="bottomTextField" destination="J71-sC-HWA" id="KvX-5z-mDn"/>
                         <outlet property="cameraButton" destination="DZy-T9-x0t" id="kD1-Fz-aM1"/>
                         <outlet property="imageView" destination="Y29-6a-MkZ" id="joD-CF-lnX"/>
+                        <outlet property="navigationBar" destination="0Ii-pi-nDg" id="ivd-VX-7wo"/>
+                        <outlet property="shareButton" destination="kBm-Iw-AvM" id="DJI-Sp-kiD"/>
                         <outlet property="toolbar" destination="Wmf-vw-0uk" id="5F3-jW-0Jc"/>
                         <outlet property="topTextField" destination="Jkh-R9-J9y" id="eOT-MU-dLa"/>
                     </connections>
